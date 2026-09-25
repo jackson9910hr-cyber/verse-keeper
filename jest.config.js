@@ -28,8 +28,6 @@ module.exports = {
     {
       displayName: 'ui',
       preset: 'jest-expo/ios',
-      // The first RNTL test pays jest-expo's cold module load (> 5 s on CI runners).
-      testTimeout: 30000,
       testMatch: ['<rootDir>/src/**/*.test.tsx'],
       moduleNameMapper,
       setupFilesAfterEnv: ['<rootDir>/jest.setup.ui.ts'],
