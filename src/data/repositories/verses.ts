@@ -72,10 +72,16 @@ export async function listTags({ db }: DataContext): Promise<string[]> {
   return rows.map((r) => r.name);
 }
 
+export async function deleteOrphanTags(tx: SqlExecutor): Promise<void> {
+  await tx.runAsync('DELETE FROM tags WHERE id NOT IN (SELECT tag_id FROM verse_tags)', []);
+}
+
+/** Replaces a verse's tags. Bulk callers pass `cleanup: false` and call deleteOrphanTags once at the end. */
 export async function writeTags(
   tx: SqlExecutor,
   verseId: string,
   tags: readonly string[],
+  cleanup = true,
 ): Promise<void> {
   await tx.runAsync('DELETE FROM verse_tags WHERE verse_id = ?', [verseId]);
   for (const name of tags) {
@@ -88,10 +94,10 @@ export async function writeTags(
       tag!.id,
     ]);
   }
-  await tx.runAsync('DELETE FROM tags WHERE id NOT IN (SELECT tag_id FROM verse_tags)', []);
+  if (cleanup) await deleteOrphanTags(tx);
 }
 
-export async function insertVerseRow(tx: SqlExecutor, v: Verse): Promise<void> {
+export async function insertVerseRow(tx: SqlExecutor, v: Verse, cleanupTags = true): Promise<void> {
   await tx.runAsync(
     `INSERT INTO verses (id, book, chapter, verse_start, verse_end, canon_key, text_ko, text_en, label_ko, label_en,
        source, pack_id, search_text, created_at, updated_at)
@@ -114,7 +120,7 @@ export async function insertVerseRow(tx: SqlExecutor, v: Verse): Promise<void> {
       v.updatedAt,
     ],
   );
-  await writeTags(tx, v.id, v.tags);
+  await writeTags(tx, v.id, v.tags, cleanupTags);
 }
 
 export async function createVerse(ctx: DataContext, input: ValidVerse): Promise<Verse> {

@@ -2,7 +2,7 @@ import type { DataContext } from '../context';
 import { emit } from '../events';
 import { cleanProfileName } from '../repositories/profiles';
 import { loadSettings, writeSetting } from '../settings';
-import { CLEAR_ALL_SQL } from './backup';
+import { CLEAR_ALL_SQL, type DeviceEffects } from './backup';
 
 /** Finishes first-run setup: creates the first profile (if none) and marks onboarding done. */
 export async function completeOnboarding(ctx: DataContext, name: string): Promise<string> {
@@ -27,8 +27,9 @@ export async function completeOnboarding(ctx: DataContext, name: string): Promis
   return id;
 }
 
-/** "Delete all data": wipes every table; the app returns to onboarding. */
-export async function resetAllData(ctx: DataContext): Promise<void> {
+/** "Delete all data": cancels reminders, wipes every table; the app returns to onboarding. */
+export async function resetAllData(ctx: DataContext, effects: DeviceEffects): Promise<void> {
+  await effects.cancelReminders();
   await ctx.db.tx(async (tx) => {
     await tx.execAsync(CLEAR_ALL_SQL);
     await tx.execAsync('DELETE FROM settings');

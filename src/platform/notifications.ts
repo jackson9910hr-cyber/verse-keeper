@@ -36,6 +36,11 @@ export async function scheduleDailyReminder(
   });
 }
 
+/** Cancels every reminder this app scheduled (used by reset and backup import). */
+export async function cancelAllReminders(): Promise<void> {
+  await Notifications.cancelAllScheduledNotificationsAsync().catch(() => undefined);
+}
+
 export async function cancelReminder(id: string | null): Promise<void> {
   if (id) await Notifications.cancelScheduledNotificationAsync(id).catch(() => undefined);
 }

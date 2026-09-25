@@ -8,7 +8,9 @@ import { parseBackup } from '@/domain/backup/backup';
 import { todayOf } from '@/domain/time/clock';
 import { formatEpoch } from '@/i18n/format';
 import { pickBackupFile, shareBackupFile } from '@/platform/backupFiles';
+import { cancelAllReminders } from '@/platform/notifications';
 import { useApp } from '@/providers/AppProvider';
+import { useAnnounce } from '@/ui/announce';
 import { Button } from '@/ui/Button';
 import { Card } from '@/ui/Card';
 import { Screen } from '@/ui/Screen';
@@ -20,6 +22,7 @@ export default function Backup() {
   const [busy, setBusy] = useState<'export' | 'import' | null>(null);
   const [message, setMessage] = useState<{ tone: 'success' | 'danger'; text: string } | null>(null);
   const last = settings['backup.lastExportAt'];
+  useAnnounce(message?.text);
 
   const doExport = async () => {
     setBusy('export');
@@ -66,7 +69,7 @@ export default function Backup() {
             style: 'destructive',
             onPress: async () => {
               try {
-                await importBackup(ctx, parsed.value);
+                await importBackup(ctx, parsed.value, { cancelReminders: cancelAllReminders });
                 setMessage({ tone: 'success', text: t('backup.imported') });
               } catch (e) {
                 if (__DEV__) console.error(e);
@@ -88,7 +91,9 @@ export default function Backup() {
   return (
     <Screen>
       <Card>
-        <Text variant="headline">{t('backup.export')}</Text>
+        <Text variant="headline" accessibilityRole="header">
+          {t('backup.export')}
+        </Text>
         <Text tone="muted">{t('backup.exportDesc')}</Text>
         <Text variant="caption" tone="muted">
           {last
@@ -103,7 +108,9 @@ export default function Backup() {
         />
       </Card>
       <Card>
-        <Text variant="headline">{t('backup.import')}</Text>
+        <Text variant="headline" accessibilityRole="header">
+          {t('backup.import')}
+        </Text>
         <Text tone="muted">{t('backup.importDesc')}</Text>
         <Button
           label={t('backup.import')}

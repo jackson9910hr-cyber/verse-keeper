@@ -3,7 +3,7 @@ import type { VersePack } from '@/domain/pack/pack';
 
 import type { DataContext } from '../context';
 import { emit } from '../events';
-import { buildSearchText, insertVerseRow } from '../repositories/verses';
+import { buildSearchText, deleteOrphanTags, insertVerseRow } from '../repositories/verses';
 import { canonKey } from '@/domain/bible/books';
 
 /**
@@ -45,7 +45,7 @@ export async function installPack(ctx: DataContext, pack: VersePack): Promise<bo
           createdAt: now,
           updatedAt: now,
         };
-        await insertVerseRow(tx, verse);
+        await insertVerseRow(tx, verse, false);
         continue;
       }
       const tags = (
@@ -72,6 +72,7 @@ export async function installPack(ctx: DataContext, pack: VersePack): Promise<bo
         ],
       );
     }
+    await deleteOrphanTags(tx);
     return true;
   });
   if (changed) emit('verses');

@@ -1,11 +1,11 @@
 import { weekStart, weekStartCarryOver } from '@/domain/family/week';
-import type { FamilyCheck, FamilyWeekly } from '@/domain/model';
+import type { FamilyCheck, FamilyWeekly, Verse } from '@/domain/model';
 import { todayOf } from '@/domain/time/clock';
 import type { LocalDate } from '@/domain/time/localDate';
 
 import type { DataContext } from '../context';
 import { emit } from '../events';
-import { toFamilyCheck, toFamilyWeekly } from '../rows';
+import { VERSE_SELECT, toFamilyCheck, toFamilyWeekly, toVerse, type VerseRow } from '../rows';
 import { writeSetting } from '../settings';
 import { ensureCardsTx } from './cards';
 
@@ -107,4 +107,14 @@ export async function changeWeekStart(
   });
   emit('settings');
   emit('family');
+}
+
+/** Assigned weekly verses (newest first) joined with their verse rows — avoids loading the whole library. */
+export async function listAssignedVerses({
+  db,
+}: DataContext): Promise<{ weekStart: LocalDate; verse: Verse }[]> {
+  const rows = await db.all<VerseRow & { week_start: string }>(
+    `SELECT f.week_start, ${VERSE_SELECT} FROM family_weekly f JOIN verses v ON v.id = f.verse_id ORDER BY f.week_start DESC`,
+  );
+  return rows.map((r) => ({ weekStart: r.week_start, verse: toVerse(r) }));
 }

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Alert } from 'react-native';
 
 import { resetAllData } from '@/data/services/app';
+import { cancelAllReminders } from '@/platform/notifications';
 import { useApp } from '@/providers/AppProvider';
 import { LinkRow, Section } from '@/ui/Rows';
 import { Screen } from '@/ui/Screen';
@@ -24,7 +25,7 @@ export default function Settings() {
             {
               text: t('settings.deleteAllAction'),
               style: 'destructive',
-              onPress: () => void resetAllData(ctx),
+              onPress: () => void resetAllData(ctx, { cancelReminders: cancelAllReminders }),
             },
           ]),
       },

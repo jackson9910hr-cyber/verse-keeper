@@ -9,7 +9,7 @@ import { canonKey } from '@/domain/bible/books';
 import type { DataContext } from '../context';
 import type { SqlExecutor } from '../db/types';
 import { emit } from '../events';
-import { buildSearchText, writeTags } from '../repositories/verses';
+import { buildSearchText, deleteOrphanTags, writeTags } from '../repositories/verses';
 import {
   VERSE_SELECT,
   toCard,
@@ -124,8 +124,9 @@ async function restore(tx: SqlExecutor, d: BackupData): Promise<void> {
         v.updatedAt,
       ],
     );
-    await writeTags(tx, v.id, v.tags);
+    await writeTags(tx, v.id, v.tags, false);
   }
+  await deleteOrphanTags(tx);
   for (const c of d.cards) {
     await tx.runAsync(
       `INSERT INTO cards (id, profile_id, verse_id, lang, ef_milli, reps, interval_days, due_date, lapses, last_reviewed_on, cloze_level, suspended, created_at)
@@ -193,10 +194,21 @@ async function restore(tx: SqlExecutor, d: BackupData): Promise<void> {
 }
 
 /** Replaces all data with a validated backup in one transaction (rolls back on any error). */
+export interface DeviceEffects {
+  /** Cancels every locally scheduled reminder (src/platform/notifications). */
+  cancelReminders: () => Promise<void>;
+}
+
+/**
+ * Replaces all data with a validated backup in one transaction (rolls back on any error).
+ * Reminders are cancelled first because the restored settings turn them off.
+ */
 export async function importBackup(
   ctx: DataContext,
   file: BackupFile,
+  effects: DeviceEffects,
 ): Promise<{ verses: number; profiles: number }> {
+  await effects.cancelReminders();
   await ctx.db.tx((tx) => restore(tx, file.data));
   emit('all');
   return { verses: file.data.verses.length, profiles: file.data.profiles.length };

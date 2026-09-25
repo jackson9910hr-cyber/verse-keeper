@@ -52,6 +52,8 @@ const pack = (version = 1, textEn = 'Jesus wept.'): VersePack => ({
   ],
 });
 
+const noEffects = { cancelReminders: async () => undefined };
+
 async function learner() {
   const ctx = await makeTestContext();
   const profileId = await completeOnboarding(ctx, 'Me');
@@ -203,7 +205,7 @@ describe('backup round trip', () => {
     const target = await makeTestContext();
     await completeOnboarding(target, 'Other');
     await createVerse(target, verseInput('지워질 데이터'));
-    expect(await importBackup(target, parsed.value)).toEqual({ verses: 2, profiles: 2 });
+    expect(await importBackup(target, parsed.value, noEffects)).toEqual({ verses: 2, profiles: 2 });
 
     const again = await exportBackup(target, '1.0.0');
     expect(again.data).toEqual({ ...file.data, settings: { ...file.data.settings } });
@@ -222,7 +224,7 @@ describe('backup round trip', () => {
     file.data.cards.push({ ...file.data.cards[0]! }); // duplicate primary key → SQLite error mid-restore
     const target = await makeTestContext();
     await completeOnboarding(target, 'Keep me');
-    await expect(importBackup(target, file)).rejects.toThrow();
+    await expect(importBackup(target, file, noEffects)).rejects.toThrow();
     expect((await listProfiles(target)).map((p) => p.name)).toEqual(['Keep me']);
   });
 });
@@ -241,9 +243,26 @@ describe('onboarding / reset', () => {
 
   it('resetAllData wipes everything', async () => {
     const { ctx } = await learner();
-    await resetAllData(ctx);
+    await resetAllData(ctx, noEffects);
     expect(await listProfiles(ctx)).toEqual([]);
     expect(await listVerses(ctx)).toEqual([]);
     expect((await loadSettings(ctx.db))['onboarding.done']).toBe(false);
+  });
+});
+
+describe('device side effects on reset / import (reminders)', () => {
+  it('resetAllData cancels scheduled reminders before wiping data', async () => {
+    const { ctx } = await learner();
+    const cancelReminders = jest.fn().mockResolvedValue(undefined);
+    await resetAllData(ctx, { cancelReminders });
+    expect(cancelReminders).toHaveBeenCalledTimes(1);
+  });
+
+  it('importBackup cancels scheduled reminders (notify.enabled is reset to false)', async () => {
+    const { ctx } = await learner();
+    const file = await exportBackup(ctx, '1.0.0');
+    const cancelReminders = jest.fn().mockResolvedValue(undefined);
+    await importBackup(ctx, file, { cancelReminders });
+    expect(cancelReminders).toHaveBeenCalledTimes(1);
   });
 });
