@@ -143,3 +143,15 @@ export async function deleteCard({ db }: DataContext, cardId: string): Promise<v
   await db.run('DELETE FROM cards WHERE id = ?', [cardId]);
   emit('cards');
 }
+
+/** Verse ids the profile is learning (for the "learning" badge in lists). */
+export async function learningVerseIds(
+  { db }: DataContext,
+  profileId: string,
+): Promise<Set<string>> {
+  const rows = await db.all<{ verse_id: string }>(
+    'SELECT DISTINCT verse_id FROM cards WHERE profile_id = ?',
+    [profileId],
+  );
+  return new Set(rows.map((r) => r.verse_id));
+}
