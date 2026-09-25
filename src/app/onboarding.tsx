@@ -4,6 +4,7 @@ import { StyleSheet, TextInput, View } from 'react-native';
 
 import { completeOnboarding } from '@/data/services/app';
 import { useApp } from '@/providers/AppProvider';
+import { announce } from '@/ui/announce';
 import { Button } from '@/ui/Button';
 import { Screen } from '@/ui/Screen';
 import { Text } from '@/ui/Text';
@@ -26,6 +27,7 @@ export default function Onboarding() {
     } catch (e) {
       if (__DEV__) console.error(e);
       setError(true);
+      announce(t('onboarding.error'));
       setBusy(false);
     }
   };
@@ -50,7 +52,11 @@ export default function Onboarding() {
           onSubmitEditing={start}
           style={[
             styles.input,
-            { color: colors.text, borderColor: colors.border, backgroundColor: colors.surface },
+            {
+              color: colors.text,
+              borderColor: colors.inputBorder,
+              backgroundColor: colors.surface,
+            },
           ]}
         />
       </View>

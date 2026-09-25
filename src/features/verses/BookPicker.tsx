@@ -21,7 +21,7 @@ export function BookPicker({
   disabled?: boolean;
 }) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, reduceMotion } = useTheme();
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState('');
   const books = useMemo(() => {
@@ -75,11 +75,14 @@ export function BookPicker({
       </Pressable>
       <Modal
         visible={open}
-        animationType="slide"
+        animationType={reduceMotion ? 'fade' : 'slide'}
         presentationStyle="pageSheet"
         onRequestClose={() => setOpen(false)}
       >
         <View style={[styles.sheet, { backgroundColor: colors.background }]}>
+          <Text variant="title" accessibilityRole="header" style={styles.sheetTitle}>
+            {t('edit.book')}
+          </Text>
           <View style={styles.sheetHeader}>
             <TextInput
               value={q}
@@ -90,7 +93,11 @@ export function BookPicker({
               autoFocus
               style={[
                 styles.search,
-                { color: colors.text, borderColor: colors.border, backgroundColor: colors.surface },
+                {
+                  color: colors.text,
+                  borderColor: colors.inputBorder,
+                  backgroundColor: colors.surface,
+                },
               ]}
             />
             <Button
@@ -122,15 +129,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   sheet: { flex: 1, paddingTop: spacing.lg },
+  sheetTitle: { paddingHorizontal: spacing.lg, paddingBottom: spacing.sm },
   sheetHeader: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: spacing.sm,
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.sm,
     alignItems: 'center',
   },
   search: {
-    flex: 1,
+    flexGrow: 1,
+    flexBasis: 200,
     minHeight: MIN_TOUCH,
     borderWidth: 1,
     borderRadius: radius.md,

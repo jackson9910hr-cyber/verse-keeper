@@ -57,7 +57,8 @@ export function Chip({
 
 const styles = StyleSheet.create({
   chip: {
-    minHeight: MIN_TOUCH - 8,
+    minHeight: MIN_TOUCH,
+    minWidth: MIN_TOUCH,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.xs + 2,
     borderRadius: radius.pill,

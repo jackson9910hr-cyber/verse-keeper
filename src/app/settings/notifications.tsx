@@ -83,7 +83,7 @@ export default function Notifications() {
       </Section>
       {enabled ? (
         <View style={{ gap: spacing.sm }}>
-          <Text variant="headline">
+          <Text variant="headline" accessibilityRole="header">
             {t('notify.time')}: {formatTime(time, lang)}
           </Text>
           <DateTimePicker

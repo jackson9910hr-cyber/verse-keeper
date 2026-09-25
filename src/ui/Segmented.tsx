@@ -33,7 +33,7 @@ export function Segmented<T extends string>({
             accessibilityLabel={o.label}
             style={[
               styles.item,
-              selected && { backgroundColor: colors.surface, borderColor: colors.border },
+              selected && { backgroundColor: colors.surface, borderColor: colors.primary },
             ]}
           >
             <Text
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   wrap: { flexDirection: 'row', flexWrap: 'wrap', borderRadius: radius.md, padding: 3, gap: 3 },
   item: {
     flexGrow: 1,
-    minHeight: MIN_TOUCH - 4,
+    minHeight: MIN_TOUCH,
     borderRadius: radius.sm,
     justifyContent: 'center',
     paddingHorizontal: spacing.sm,

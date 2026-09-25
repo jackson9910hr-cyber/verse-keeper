@@ -1,5 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 
+import { useAnnounce } from './announce';
 import { Button } from './Button';
 import { Text } from './Text';
 import { useTheme } from './ThemeContext';
@@ -42,6 +43,7 @@ export function ErrorState({
   retryLabel?: string;
   onRetry?: () => void;
 }) {
+  useAnnounce(body ? `${title}. ${body}` : title);
   return (
     <View style={styles.box} accessibilityRole="alert">
       <Text variant="headline" tone="danger" style={styles.center}>

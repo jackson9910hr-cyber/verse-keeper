@@ -78,7 +78,7 @@ export default function Verses() {
         windowSize={7}
         contentContainerStyle={styles.content}
         ItemSeparatorComponent={Separator}
-        ListEmptyComponent={empty}
+        ListEmptyComponent={empty()}
         ListHeaderComponent={
           <View style={styles.header}>
             <TextInput
@@ -91,11 +91,15 @@ export default function Verses() {
               autoCorrect={false}
               style={[
                 styles.search,
-                { color: colors.text, borderColor: colors.border, backgroundColor: colors.surface },
+                {
+                  color: colors.text,
+                  borderColor: colors.inputBorder,
+                  backgroundColor: colors.surface,
+                },
               ]}
             />
             <Segmented<VerseFilter>
-              accessibilityLabel={t('verses.title')}
+              accessibilityLabel={t('verses.filter')}
               value={filter}
               onChange={setFilter}
               options={[

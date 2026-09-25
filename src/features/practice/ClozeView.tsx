@@ -4,6 +4,7 @@ import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 
 import { generateCloze, isCorrectAnswer, type ClozeLevel } from '@/domain/cloze/cloze';
 import { wordTokens } from '@/domain/text/tokenize';
+import { announce } from '@/ui/announce';
 import { Button } from '@/ui/Button';
 import { Text } from '@/ui/Text';
 import { useTheme } from '@/ui/ThemeContext';
@@ -37,19 +38,17 @@ export function ClozeView({
     [text, level, seed, contentFirst, lang],
   );
   const [revealed, setRevealed] = useState<Set<number>>(new Set());
-  const [answer, setAnswer] = useState('');
   const [feedback, setFeedback] = useState<{ ok: boolean; word: string } | null>(null);
 
   const words = useMemo(() => wordTokens(cloze.tokens), [cloze]);
   const nextHidden = words.find((w) => cloze.hidden.has(w.index) && !revealed.has(w.index));
   const reveal = (index: number) => setRevealed((r) => new Set(r).add(index));
 
-  const check = () => {
+  const onResult = (ok: boolean, word: string) => {
     if (!nextHidden) return;
-    const ok = isCorrectAnswer(answer, nextHidden.text);
-    setFeedback({ ok, word: nextHidden.text });
+    setFeedback({ ok, word });
     reveal(nextHidden.index);
-    setAnswer('');
+    announce(ok ? t('practice.correct') : t('practice.wrong', { answer: word }));
   };
 
   return (
@@ -75,11 +74,13 @@ export function ClozeView({
               onPress={() => reveal(word.index)}
               accessibilityRole="button"
               accessibilityLabel={t('practice.hiddenWord')}
+              hitSlop={{ top: 8, bottom: 8, left: 2, right: 2 }}
               style={[
                 styles.blank,
                 {
                   backgroundColor: colors.blank,
-                  borderColor: isNext ? colors.primary : 'transparent',
+                  borderColor: isNext ? colors.primary : colors.textMuted,
+                  borderWidth: isNext ? 2.5 : 1.5,
                   minWidth: Math.min(
                     160,
                     Math.max(MIN_TOUCH, [...word.text].length * (lang === 'ko' ? 20 : 11)),
@@ -91,31 +92,10 @@ export function ClozeView({
         }}
       />
       {typeMode && nextHidden && !revealAll ? (
-        <View style={styles.typeRow}>
-          <TextInput
-            value={answer}
-            onChangeText={setAnswer}
-            onSubmitEditing={check}
-            placeholder={t('practice.typePlaceholder')}
-            placeholderTextColor={colors.textMuted}
-            autoCapitalize="none"
-            autoCorrect={false}
-            returnKeyType="done"
-            accessibilityLabel={t('practice.typePlaceholder')}
-            style={[
-              styles.input,
-              { color: colors.text, borderColor: colors.border, backgroundColor: colors.surface },
-            ]}
-          />
-          <Button label={t('practice.check')} onPress={check} compact />
-        </View>
+        <TypeAnswer key={nextHidden.index} expected={nextHidden.text} onResult={onResult} />
       ) : null}
       {feedback ? (
-        <Text
-          tone={feedback.ok ? 'success' : 'danger'}
-          accessibilityLiveRegion="polite"
-          accessibilityRole="alert"
-        >
+        <Text tone={feedback.ok ? 'success' : 'danger'} accessibilityLiveRegion="polite">
           {feedback.ok ? t('practice.correct') : t('practice.wrong', { answer: feedback.word })}
         </Text>
       ) : null}
@@ -123,11 +103,46 @@ export function ClozeView({
   );
 }
 
+/** Owns the typed answer so keystrokes don't re-render the whole verse. */
+function TypeAnswer({
+  expected,
+  onResult,
+}: {
+  expected: string;
+  onResult: (ok: boolean, word: string) => void;
+}) {
+  const { t } = useTranslation();
+  const { colors } = useTheme();
+  const [answer, setAnswer] = useState('');
+  const check = () => onResult(isCorrectAnswer(answer, expected), expected);
+  return (
+    <View style={styles.typeRow}>
+      <TextInput
+        value={answer}
+        onChangeText={setAnswer}
+        onSubmitEditing={check}
+        placeholder={t('practice.typePlaceholder')}
+        placeholderTextColor={colors.textMuted}
+        autoCapitalize="none"
+        autoCorrect={false}
+        returnKeyType="done"
+        accessibilityLabel={t('practice.typePlaceholder')}
+        style={[
+          styles.input,
+          { color: colors.text, borderColor: colors.inputBorder, backgroundColor: colors.surface },
+        ]}
+      />
+      <Button label={t('practice.check')} onPress={check} compact />
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
-  blank: { height: 30, borderRadius: radius.sm, borderWidth: 2, marginBottom: 2 },
-  typeRow: { flexDirection: 'row', gap: spacing.sm, alignItems: 'center' },
+  blank: { height: 30, borderRadius: radius.sm, marginBottom: 2 },
+  typeRow: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm, alignItems: 'center' },
   input: {
-    flex: 1,
+    flexGrow: 1,
+    flexBasis: 180,
     minHeight: MIN_TOUCH,
     borderWidth: 1,
     borderRadius: radius.md,

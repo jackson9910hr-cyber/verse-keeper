@@ -14,7 +14,12 @@
     "on": "켜짐",
     "off": "꺼짐"
   },
-  "tabs": { "home": "홈", "verses": "구절", "family": "가족", "settings": "설정" },
+  "tabs": {
+    "home": "홈",
+    "verses": "구절",
+    "family": "가족",
+    "settings": "설정"
+  },
   "onboarding": {
     "title": "Verse Keeper",
     "subtitle": "하루 몇 분, 말씀을 마음에 새겨요.\n계정도, 광고도, 추적도 없어요. 모든 데이터는 이 기기에만 저장돼요.",
@@ -57,7 +62,8 @@
     "emptyAll": "구절이 없어요",
     "tag": "태그: {{tag}}",
     "clearTag": "태그 필터 해제",
-    "learning": "학습 중"
+    "learning": "학습 중",
+    "filter": "구절 필터"
   },
   "verse": {
     "learn": "학습 시작",
@@ -78,7 +84,10 @@
     "familySetDone": "이번 주 가족 구절로 정했어요",
     "notFound": "구절을 찾을 수 없어요"
   },
-  "lang": { "ko": "한국어", "en": "English" },
+  "lang": {
+    "ko": "한국어",
+    "en": "English"
+  },
   "edit": {
     "titleNew": "구절 추가",
     "titleEdit": "구절 편집",
@@ -109,7 +118,11 @@
   },
   "practice": {
     "title": "암송",
-    "modes": { "cloze": "빈칸", "first_letter": "첫 글자", "listen": "듣기" },
+    "modes": {
+      "cloze": "빈칸",
+      "first_letter": "첫 글자",
+      "listen": "듣기"
+    },
     "level": "레벨 {{level}}",
     "levelUp": "레벨 올리기",
     "levelDown": "레벨 내리기",
@@ -122,7 +135,12 @@
     "correct": "정답이에요!",
     "wrong": "정답: {{answer}}",
     "gradePrompt": "얼마나 잘 기억했나요?",
-    "grade": { "again": "다시", "hard": "어려움", "good": "좋음", "easy": "쉬움" },
+    "grade": {
+      "again": "다시",
+      "hard": "어려움",
+      "good": "좋음",
+      "easy": "쉬움"
+    },
     "gradeA11y": "{{grade}}, 다음 복습 {{interval}}",
     "practiceOnly": "추가 연습이에요. 복습 일정은 바뀌지 않아요.",
     "noText": "이 언어의 본문이 없어요",
@@ -137,7 +155,8 @@
       "more": "반복 늘리기",
       "noVoice": "{{lang}} 음성이 없어요. 설정 > 손쉬운 사용 > 읽기 및 말하기 > 음성에서 내려받아 주세요.",
       "error": "음성을 재생할 수 없어요"
-    }
+    },
+    "hintA11y": "{{letter}}, {{count}}글자"
   },
   "review": {
     "title": "오늘 복습",
@@ -163,7 +182,8 @@
     "history": "지난 구절",
     "noHistory": "지난 구절이 없어요",
     "weekOf": "{{date}} 주",
-    "pickTitle": "이번 주 구절 선택"
+    "pickTitle": "이번 주 구절 선택",
+    "showMore": "더 보기"
   },
   "settings": {
     "title": "설정",
@@ -208,8 +228,8 @@
     "contentFirst": "내용어부터 빈칸 만들기",
     "showLength": "힌트에 글자 수 보이기",
     "koRule": "한국어 첫 글자 힌트",
-    "koSyllable": "첫 음절 (태○○)",
-    "koChoseong": "초성 (ㅌㅊㅇ)",
+    "koSyllable": "첫 음절 (우○○)",
+    "koChoseong": "초성 (ㅇㄹㄴ)",
     "weekStart": "가족 주간 시작 요일",
     "haptics": "햅틱 피드백",
     "decrease": "줄이기",

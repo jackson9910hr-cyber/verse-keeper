@@ -7,6 +7,7 @@ import { playbackPlan, splitPhrases, tokenAtOffset } from '@/domain/listen/phras
 import type { Lang } from '@/domain/model';
 import { normalizeText, tokenize } from '@/domain/text/tokenize';
 import { hasVoice, speak, stopSpeaking } from '@/platform/speech';
+import { announce, useAnnounce } from '@/ui/announce';
 import { Button } from '@/ui/Button';
 import { StepperRow } from '@/ui/Rows';
 import { Text } from '@/ui/Text';
@@ -98,6 +99,7 @@ export function ListenView({
         onError: () => {
           if (id !== runId.current) return;
           setError(true);
+          announce(t('practice.listen.error'));
           setPlaying(false);
         },
       });
@@ -105,6 +107,7 @@ export function ListenView({
     step(0);
   };
 
+  useAnnounce(voiceMissing ? t('practice.listen.noVoice', { lang: t(`lang.${lang}`) }) : null);
   const phrase = phraseIndex >= 0 ? phrases[phraseIndex] : undefined;
 
   return (

@@ -67,7 +67,7 @@ export default function Home() {
 
           <Card
             accessible
-            accessibilityLabel={`${t('home.streak', { count: data.streak.current })}, ${t('home.streakLongest', { count: data.streak.longest })}`}
+            accessibilityLabel={`${t('home.streak', { count: data.streak.current })}, ${data.streak.studiedToday ? t('home.streakToday') : t('home.streakPending')}, ${t('home.streakLongest', { count: data.streak.longest })}`}
           >
             <Text variant="headline">🔥 {t('home.streak', { count: data.streak.current })}</Text>
             <Text tone="muted">
@@ -88,7 +88,7 @@ export default function Home() {
                 <Text variant="headline" tone="primary">
                   {formatReference(data.familyVerse, lang)}
                 </Text>
-                <Text numberOfLines={4}>{previewText(data.familyVerse, lang)}</Text>
+                <Text>{previewText(data.familyVerse, lang)}</Text>
                 <Button
                   label={t('verse.practice')}
                   variant="secondary"

@@ -64,7 +64,8 @@
     "emptyAll": "No verses",
     "tag": "Tag: {{tag}}",
     "clearTag": "Clear tag filter",
-    "learning": "Learning"
+    "learning": "Learning",
+    "filter": "Verse filter"
   },
   "verse": {
     "learn": "Start learning",
@@ -156,7 +157,9 @@
       "more": "More repeats",
       "noVoice": "No {{lang}} voice is installed. Download one in Settings > Accessibility > Spoken Content > Voices.",
       "error": "Can’t play speech"
-    }
+    },
+    "hintA11y_one": "{{letter}}, {{count}} letter",
+    "hintA11y_other": "{{letter}}, {{count}} letters"
   },
   "review": {
     "title": "Today’s review",
@@ -184,7 +187,8 @@
     "history": "Previous verses",
     "noHistory": "No previous verses",
     "weekOf": "Week of {{date}}",
-    "pickTitle": "Choose this week’s verse"
+    "pickTitle": "Choose this week’s verse",
+    "showMore": "Show more"
   },
   "settings": {
     "title": "Settings",
@@ -229,8 +233,8 @@
     "contentFirst": "Blank content words first",
     "showLength": "Show word length in hints",
     "koRule": "Korean first-letter hint",
-    "koSyllable": "First syllable (태○○)",
-    "koChoseong": "Initial consonants (ㅌㅊㅇ)",
+    "koSyllable": "First syllable (우○○)",
+    "koChoseong": "Initial consonants (ㅇㄹㄴ)",
     "weekStart": "Family week starts on",
     "haptics": "Haptic feedback",
     "decrease": "Decrease",

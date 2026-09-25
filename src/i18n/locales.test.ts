@@ -31,6 +31,11 @@ describe('locales', () => {
     for (const key of Object.keys(k))
       expect([key, placeholders(k[key]!)]).toEqual([key, placeholders(e[key]!)]);
   });
+  it('has no placeholder text (App Review 2.1)', () => {
+    for (const v of [...Object.values(flat(ko as Tree)), ...Object.values(flat(en as Tree))]) {
+      expect(v).not.toMatch(/lorem|ipsum|\bTODO\b|\bTBD\b|xxx|example\.com/i);
+    }
+  });
   it('has no empty strings', () => {
     for (const v of [...Object.values(flat(ko as Tree)), ...Object.values(flat(en as Tree))])
       expect(v.trim()).not.toBe('');

@@ -82,7 +82,10 @@ export function SwitchRow({
   const { colors } = useTheme();
   return (
     <View style={[styles.row, { borderColor: colors.border }]}>
-      <Text style={styles.flex}>{label}</Text>
+      {/* The Switch carries the label for VoiceOver; hide the duplicate text. */}
+      <Text style={styles.flex} accessibilityElementsHidden importantForAccessibility="no">
+        {label}
+      </Text>
       <Switch
         value={value}
         onValueChange={onValueChange}
@@ -124,11 +127,24 @@ export function StepperRow({
       <Text variant="headline">{text}</Text>
     </Pressable>
   );
+  // One adjustable element for VoiceOver (swipe up/down), announcing the new value each time.
   return (
-    <View style={[styles.row, { borderColor: colors.border }]} accessibilityLabel={label}>
-      <Text style={styles.flex} accessibilityLiveRegion="polite">
-        {label}
-      </Text>
+    <View
+      style={[styles.row, { borderColor: colors.border }]}
+      accessible
+      accessibilityRole="adjustable"
+      accessibilityLabel={label}
+      accessibilityValue={{ text: label }}
+      accessibilityActions={[
+        { name: 'increment', label: increaseLabel },
+        { name: 'decrement', label: decreaseLabel },
+      ]}
+      onAccessibilityAction={(e) => {
+        if (e.nativeEvent.actionName === 'increment' && canIncrease) onIncrease();
+        if (e.nativeEvent.actionName === 'decrement' && canDecrease) onDecrease();
+      }}
+    >
+      <Text style={styles.flex}>{label}</Text>
       {btn('−', decreaseLabel, onDecrease, canDecrease)}
       {btn('+', increaseLabel, onIncrease, canIncrease)}
     </View>

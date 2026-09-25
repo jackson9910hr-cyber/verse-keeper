@@ -11,6 +11,8 @@ import { todayOf } from '@/domain/time/clock';
 import { PracticePanel } from '@/features/practice/PracticePanel';
 import { haptic } from '@/platform/haptics';
 import { useApp } from '@/providers/AppProvider';
+import { formatReference } from '@/i18n/books';
+import { announce } from '@/ui/announce';
 import { Button } from '@/ui/Button';
 import { Card } from '@/ui/Card';
 import { Screen } from '@/ui/Screen';
@@ -25,7 +27,7 @@ interface QueueItem {
 
 export default function Review() {
   const { t } = useTranslation();
-  const { ctx, activeProfile, settings } = useApp();
+  const { ctx, activeProfile, settings, lang } = useApp();
   const [seed] = useState(() => String(Date.now()));
   const [queue, setQueue] = useState<QueueItem[] | null>(null);
   const [index, setIndex] = useState(0);
@@ -90,6 +92,15 @@ export default function Review() {
         setAgain((n) => n + 1);
       }
       if (!current.relearn) setDone((n) => n + 1);
+      const next = queue[index + 1];
+      // VoiceOver loses focus when the next card mounts; announce where the user is.
+      if (next) {
+        announce(
+          `${t('review.progress', { current: index + 2, total: queue.length + (grade === 'again' && !current.relearn ? 1 : 0) })}, ${formatReference(next.item.verse, lang)}`,
+        );
+      } else if (!(grade === 'again' && !current.relearn)) {
+        announce(t('review.summaryTitle'));
+      }
       setIndex((i) => i + 1);
     } catch (e) {
       if (__DEV__) console.error(e);

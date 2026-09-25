@@ -8,6 +8,8 @@ export interface Palette {
   text: string;
   textMuted: string;
   border: string;
+  /** Form-field outline: ≥ 3:1 against surface and background (WCAG 1.4.11). */
+  inputBorder: string;
   primary: string;
   onPrimary: string;
   danger: string;
@@ -26,6 +28,7 @@ export const light: Palette = {
   text: '#1C1B1A',
   textMuted: '#57534D',
   border: '#D5D0C7',
+  inputBorder: '#8A857C',
   primary: '#2A5AA6',
   onPrimary: '#FFFFFF',
   danger: '#B3261E',
@@ -53,6 +56,7 @@ export const dark: Palette = {
   text: '#F2EFEA',
   textMuted: '#BDB7AE',
   border: '#45423D',
+  inputBorder: '#7D776F',
   primary: '#8FB6F5',
   onPrimary: '#0B1A33',
   danger: '#F2B8B5',

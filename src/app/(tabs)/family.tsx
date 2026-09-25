@@ -1,4 +1,5 @@
 import { router } from 'expo-router';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
@@ -19,11 +20,19 @@ import { Text } from '@/ui/Text';
 import { useTheme } from '@/ui/ThemeContext';
 import { spacing } from '@/ui/theme';
 
+const HISTORY_PREVIEW = 12;
+
 export default function Family() {
   const { t } = useTranslation();
   const { colors } = useTheme();
   const { ctx, lang, profiles, settings } = useApp();
   const { data, error, loading, reload } = useFamily();
+  const [showAllHistory, setShowAllHistory] = useState(false);
+  const history = data
+    ? showAllHistory
+      ? data.history
+      : data.history.slice(0, HISTORY_PREVIEW)
+    : [];
 
   return (
     <Screen>
@@ -84,11 +93,7 @@ export default function Family() {
                       label={`${checked ? '✓ ' : ''}${p.name}`}
                       color={colors.profile[p.color]}
                       selected={checked}
-                      accessibilityLabel={
-                        checked
-                          ? t('family.memberChecked', { name: p.name })
-                          : t('family.memberUnchecked', { name: p.name })
-                      }
+                      accessibilityLabel={p.name}
                       onPress={() => {
                         haptic('tap', settings['ui.haptics']);
                         void toggleCheck(ctx, data.week, p.id);
@@ -116,18 +121,23 @@ export default function Family() {
                 <Text tone="muted">{t('family.noHistory')}</Text>
               </View>
             ) : (
-              data.history.map((h) =>
-                h.verse ? (
-                  <LinkRow
-                    key={h.weekStart}
-                    label={formatReference(h.verse, lang)}
-                    value={t('family.weekOf', { date: formatLocalDate(h.weekStart, lang) })}
-                    onPress={() => router.push(`/verse/${h.verse!.id}`)}
-                  />
-                ) : null,
-              )
+              history.map((h) => (
+                <LinkRow
+                  key={h.weekStart}
+                  label={formatReference(h.verse, lang)}
+                  value={t('family.weekOf', { date: formatLocalDate(h.weekStart, lang) })}
+                  onPress={() => router.push(`/verse/${h.verse.id}`)}
+                />
+              ))
             )}
           </Section>
+          {data.history.length > HISTORY_PREVIEW && !showAllHistory ? (
+            <Button
+              label={t('family.showMore')}
+              variant="ghost"
+              onPress={() => setShowAllHistory(true)}
+            />
+          ) : null}
         </>
       ) : null}
     </Screen>

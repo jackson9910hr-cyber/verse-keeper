@@ -12,6 +12,7 @@ import {
   type VerseErrors,
 } from '@/domain/verse/verseInput';
 import type { UiLang } from '@/i18n/books';
+import { announce } from '@/ui/announce';
 import { Button } from '@/ui/Button';
 import { Chip } from '@/ui/Chip';
 import { Text } from '@/ui/Text';
@@ -105,6 +106,9 @@ export function VerseForm({
     const r = validateForm(withDraft);
     if (!r.ok) {
       setErrors(r.errors);
+      // VoiceOver: announce the first problem so the user knows why nothing was saved.
+      const first = Object.values(r.errors)[0];
+      if (first) announce(t(`edit.errors.${first}`));
       return;
     }
     setErrors({});
@@ -113,7 +117,7 @@ export function VerseForm({
 
   const inputStyle = [
     styles.input,
-    { color: colors.text, borderColor: colors.border, backgroundColor: colors.surface },
+    { color: colors.text, borderColor: colors.inputBorder, backgroundColor: colors.surface },
   ];
   const err = (key: keyof VerseErrors) =>
     errors[key] ? (
@@ -139,7 +143,9 @@ export function VerseForm({
   );
   const textArea = (key: 'textKo' | 'textEn', label: string, locked?: boolean) => (
     <View style={{ gap: spacing.xs }}>
-      <Text variant="headline">{label}</Text>
+      <Text variant="headline" accessibilityRole="header">
+        {label}
+      </Text>
       <TextInput
         value={values[key]}
         onChangeText={(s) => set({ [key]: s.slice(0, MAX_TEXT_LENGTH) })}
@@ -166,7 +172,9 @@ export function VerseForm({
   return (
     <View style={{ gap: spacing.lg }}>
       <View style={{ gap: spacing.sm }}>
-        <Text variant="headline">{t('edit.reference')}</Text>
+        <Text variant="headline" accessibilityRole="header">
+          {t('edit.reference')}
+        </Text>
         <BookPicker
           value={values.book}
           lang={lang}
@@ -187,13 +195,17 @@ export function VerseForm({
         {t('edit.textHint')}
       </Text>
       <View style={{ gap: spacing.sm }}>
-        <Text variant="headline">{t('edit.tags')}</Text>
+        <Text variant="headline" accessibilityRole="header">
+          {t('edit.tags')}
+        </Text>
         <View style={styles.tags}>
           {values.tags.map((tag) => (
             <Chip
               key={tag}
               label={`${t(`tagNames.${tag}`, { defaultValue: tag })} ✕`}
-              accessibilityLabel={t('edit.removeTag', { tag })}
+              accessibilityLabel={t('edit.removeTag', {
+                tag: t(`tagNames.${tag}`, { defaultValue: tag }),
+              })}
               onPress={() => set({ tags: values.tags.filter((x) => x !== tag) })}
             />
           ))}

@@ -53,7 +53,11 @@ function ProfileEditor({
           accessibilityLabel={t('profiles.namePlaceholder')}
           style={[
             styles.input,
-            { color: colors.text, borderColor: colors.border, backgroundColor: colors.surface },
+            {
+              color: colors.text,
+              borderColor: colors.inputBorder,
+              backgroundColor: colors.surface,
+            },
           ]}
         />
         {active ? (
@@ -121,7 +125,9 @@ export default function Profiles() {
         <Text tone="muted">{t('profiles.limit', { count: MAX_PROFILES })}</Text>
       ) : (
         <Card>
-          <Text variant="headline">{t('profiles.add')}</Text>
+          <Text variant="headline" accessibilityRole="header">
+            {t('profiles.add')}
+          </Text>
           <TextInput
             value={name}
             onChangeText={(s) => setName(s.slice(0, 20))}
@@ -132,7 +138,11 @@ export default function Profiles() {
             returnKeyType="done"
             style={[
               styles.input,
-              { color: colors.text, borderColor: colors.border, backgroundColor: colors.surface },
+              {
+                color: colors.text,
+                borderColor: colors.inputBorder,
+                backgroundColor: colors.surface,
+              },
             ]}
           />
           <Button

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { hintWord, type KoHintRule } from '@/domain/hint/firstLetter';
 import { Text } from '@/ui/Text';
@@ -16,12 +17,23 @@ export function FirstLetterView({
   showLength: boolean;
   revealAll: boolean;
 }) {
+  const { t } = useTranslation();
   const opts = useMemo(() => ({ koRule, showLength }), [koRule, showLength]);
   return (
     <WordFlow
       text={text}
       renderWord={({ word }) => (
-        <Text variant="verse" accessibilityLabel={revealAll ? word.text : undefined}>
+        <Text
+          variant="verse"
+          accessibilityLabel={
+            revealAll
+              ? word.text
+              : t('practice.hintA11y', {
+                  letter: hintWord(word, opts).replace(/[_○…]/gu, ''),
+                  count: [...word.text].length,
+                })
+          }
+        >
           {revealAll ? word.text : hintWord(word, opts)}
         </Text>
       )}
