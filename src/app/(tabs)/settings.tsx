@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Alert } from 'react-native';
 
 import { resetAllData } from '@/data/services/app';
+import { CAPABILITIES } from '@/platform/capabilities';
 import { cancelAllReminders } from '@/platform/notifications';
 import { useApp } from '@/providers/AppProvider';
 import { LinkRow, Section } from '@/ui/Rows';
@@ -48,11 +49,13 @@ export default function Settings() {
           label={t('settings.appearance')}
           onPress={() => router.push('/settings/appearance')}
         />
-        <LinkRow
-          label={t('settings.notifications')}
-          value={settings['notify.enabled'] ? t('common.on') : t('common.off')}
-          onPress={() => router.push('/settings/notifications')}
-        />
+        {CAPABILITIES.localNotifications ? (
+          <LinkRow
+            label={t('settings.notifications')}
+            value={settings['notify.enabled'] ? t('common.on') : t('common.off')}
+            onPress={() => router.push('/settings/notifications')}
+          />
+        ) : null}
         <LinkRow label={t('settings.backup')} onPress={() => router.push('/settings/backup')} />
         <LinkRow label={t('settings.about')} onPress={() => router.push('/settings/about')} />
       </Section>

@@ -264,7 +264,8 @@
     "deniedBody": "설정 앱에서 Verse Keeper의 알림을 허용해 주세요.",
     "openSettings": "설정 열기",
     "contentTitle": "오늘의 암송 시간이에요",
-    "contentBody": "몇 분만 말씀을 복습해 볼까요?"
+    "contentBody": "몇 분만 말씀을 복습해 볼까요?",
+    "unsupported": "웹 버전에서는 매일 복습 알림을 쓸 수 없어요. iPhone 앱에서 사용해 주세요."
   },
   "backup": {
     "title": "백업 · 복원",

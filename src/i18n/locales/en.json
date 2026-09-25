@@ -269,7 +269,8 @@
     "deniedBody": "Allow notifications for Verse Keeper in the Settings app.",
     "openSettings": "Open Settings",
     "contentTitle": "Time to review",
-    "contentBody": "Spend a few minutes with today’s verses?"
+    "contentBody": "Spend a few minutes with today’s verses?",
+    "unsupported": "Daily reminders aren’t available in the web version. Use the iPhone app for reminders."
   },
   "backup": {
     "title": "Backup & restore",

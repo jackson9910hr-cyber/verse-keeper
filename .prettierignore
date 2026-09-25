@@ -6,3 +6,4 @@ android
 package-lock.json
 assets/packs/*.json
 *.md
+dist-web

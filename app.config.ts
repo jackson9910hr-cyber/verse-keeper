@@ -7,6 +7,8 @@ import type { ConfigContext, ExpoConfig } from 'expo/config';
 const BUNDLE_ID = process.env.IOS_BUNDLE_ID ?? 'io.github.jackson9910hr-cyber.versekeeper';
 /** Paste the id printed by `npx eas-cli@latest init` here (or set EAS_PROJECT_ID). See docs/release.md. */
 const EAS_PROJECT_ID = process.env.EAS_PROJECT_ID ?? '';
+/** Sub-path when hosted on GitHub Pages (https://<user>.github.io/verse-keeper/). */
+const WEB_BASE_URL = process.env.WEB_BASE_URL ?? '';
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
@@ -17,7 +19,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   orientation: 'portrait',
   icon: './assets/icon.png',
   userInterfaceStyle: 'automatic',
-  platforms: ['ios', 'android'],
+  platforms: ['ios', 'android', 'web'],
   ios: {
     bundleIdentifier: BUNDLE_ID,
     supportsTablet: true,
@@ -76,7 +78,17 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ],
     './plugins/withoutPushEntitlement',
   ],
-  experiments: { typedRoutes: true },
+  web: {
+    output: 'single',
+    bundler: 'metro',
+    favicon: './assets/favicon.png',
+    name: 'Verse Keeper',
+    shortName: 'Verse Keeper',
+    lang: 'ko',
+    backgroundColor: '#F6F4EF',
+    themeColor: '#2A5AA6',
+  },
+  experiments: { typedRoutes: true, ...(WEB_BASE_URL ? { baseUrl: WEB_BASE_URL } : {}) },
   extra: {
     router: {},
     ...(EAS_PROJECT_ID ? { eas: { projectId: EAS_PROJECT_ID } } : {}),

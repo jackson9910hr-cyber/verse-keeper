@@ -12,9 +12,11 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "verify": "npm run typecheck && npm run lint && npm run test -- --coverage",
-    "prepare": "husky"
+    "prepare": "husky",
+    "build:web": "node scripts/build-web.mjs"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~57.0.16",
     "@react-native-community/datetimepicker": "9.1.0",
     "expo": "~57.0.25",
     "expo-asset": "~57.0.18",
@@ -35,10 +37,12 @@
     "expo-symbols": "~57.0.3",
     "i18next": "^26.4.2",
     "react": "19.2.3",
+    "react-dom": "19.2.3",
     "react-i18next": "^17.0.15",
     "react-native": "0.86.3",
     "react-native-safe-area-context": "~5.7.0",
-    "react-native-screens": "~4.26.0"
+    "react-native-screens": "~4.26.0",
+    "react-native-web": "~0.21.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.3",
@@ -49,6 +53,7 @@
     "@types/node": "^22.20.4",
     "@types/react": "~19.2.2",
     "babel-preset-expo": "^57.0.13",
+    "coi-serviceworker": "^0.1.7",
     "eslint": "^9.39.5",
     "eslint-config-expo": "~57.0.2",
     "eslint-config-prettier": "^10.1.8",

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Alert, Linking, View } from 'react-native';
 
 import { formatTime } from '@/i18n/format';
+import { CAPABILITIES } from '@/platform/capabilities';
 import {
   cancelReminder,
   ensureNotificationPermission,
@@ -70,6 +71,14 @@ export default function Notifications() {
   };
 
   const pickerValue = new Date(2000, 0, 1, h, m);
+
+  if (!CAPABILITIES.localNotifications) {
+    return (
+      <Screen>
+        <Text tone="muted">{t('notify.unsupported')}</Text>
+      </Screen>
+    );
+  }
 
   return (
     <Screen>

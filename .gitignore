@@ -49,3 +49,6 @@ coverage/
 *.cer
 credentials.json
 google-services.json
+
+# web build
+dist-web/
