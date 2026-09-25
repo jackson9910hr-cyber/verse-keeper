@@ -1,0 +1,49 @@
+name: Deploy web app
+
+# Builds the web version and publishes it to GitHub Pages:
+# https://jackson9910hr-cyber.github.io/verse-keeper/
+on:
+  push:
+    branches: [claude/verse-keeper-stage-0-8t6rne]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run test -- --ci
+      - run: npm run build:web
+        env:
+          CI: '1'
+          WEB_BASE_URL: /verse-keeper
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist-web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
