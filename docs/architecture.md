@@ -46,8 +46,8 @@ TanStack Query도 쓰지 않는다: 네트워크 캐시 기능이 필요 없고,
 
 ```text
 verse-keeper/
-├─ app/                          # Expo Router 라우트만 둔다(얇게: 화면 조립 + 네비게이션)
 ├─ src/
+│  ├─ app/                       # Expo Router 라우트만 둔다(얇게: 화면 조립 + 네비게이션). SDK 57은 src/app 우선
 │  ├─ domain/                    # 🔒 순수 TS. React / Expo / SQLite import 금지
 │  │  ├─ time/                   #   Clock, LocalDate(civil 연산), FixedClock/TableClock
 │  │  ├─ srs/                    #   schedule(), initialState(), previewIntervals(), dueOrder
@@ -105,7 +105,7 @@ flowchart LR
 | domain에서 `Date.now`, 인자 없는 `new Date()`, `Math.random` 사용 금지 | `no-restricted-syntax` |
 
 ### 3.2 Path alias
-`@/domain/*`, `@/data/*`, `@/platform/*`, `@/features/*`, `@/ui/*`, `@/i18n/*` → `tsconfig.json`의 `paths`에 정의하고 Jest `moduleNameMapper`에도 같은 규칙을 둔다. (Expo SDK 57 Metro는 tsconfig paths를 기본으로 지원한다.)
+`@/*` → `./src/*` 하나로 `tsconfig.json`의 `paths`에 정의하고(`@/domain/...`, `@/data/...` 등) Jest `moduleNameMapper`에도 같은 규칙을 둔다. (Expo SDK 57 Metro는 tsconfig paths를 기본으로 지원한다.)
 
 ### 3.3 Jest 구성
 

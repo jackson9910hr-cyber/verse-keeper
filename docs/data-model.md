@@ -304,7 +304,7 @@ export async function migrate(db: SqlExecutor, migrations = MIGRATIONS): Promise
   "appVersion": "1.0.0",
   "exportedAt": "2026-09-25T11:00:00.000Z",
   "data": {
-    "profiles": [ … ], "verses": [ … ], "tags": [ … ], "verseTags": [ … ],
+    "profiles": [ … ], "verses": [ … /* 각 구절에 tags: string[] 포함 */ ],
     "cards": [ … ], "reviewLogs": [ … ], "familyWeekly": [ … ], "familyChecks": [ … ],
     "settings": { "ui.theme": "dark", … },          // notify.* 는 제외(기기마다 권한이 다름)
     "installedPacks": [ … ]
@@ -331,7 +331,7 @@ export async function migrate(db: SqlExecutor, migrations = MIGRATIONS): Promise
   },
   "verses": [
     { "id": "web-core-50:JHN.3.16", "book": "JHN", "chapter": 3, "verseStart": 16, "verseEnd": null,
-      "textEn": "<WEB 원문>", "tags": ["gospel", "love"] }
+      "textEn": "<WEB 원문>", "tags": ["love", "salvation"] }
   ]
 }
 ```

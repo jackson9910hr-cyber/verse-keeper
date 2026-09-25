@@ -19,13 +19,18 @@
 | 버전 호환 확인 | `npx expo install --check` · `npx expo-doctor` |
 | iOS 빌드 | `eas build -p ios --profile <development\|preview\|production>` |
 
-> 명령어 표는 Stage 1 스캐폴딩 이후 기준이다. 스크립트 이름을 바꾸면 이 표도 같이 고친다.
+> 스크립트 이름을 바꾸면 이 표도 같이 고친다. 출시 절차는 `docs/release.md`.
+
+추가 규칙:
+- React Compiler 계열 lint 규칙(`react-hooks/refs`, `purity`, `set-state-in-effect`)을 끄지 말고 코드를 고친다.
+- RNTL v14의 `render`/`fireEvent`는 async다 — 반드시 `await`.
+- 번들 팩은 `scripts/build-pack.ts`로만 만든다. 손으로 JSON을 고치지 않는다.
 
 ## 폴더 규칙
 
-- `app/` — Expo Router 라우트만 둔다. 화면 조립과 네비게이션만 담당하고 로직은 `src/features`로 보낸다.
+- `src/app/` — Expo Router 라우트만 둔다(SDK 57은 `src/app`이 있으면 그것을 라우트 루트로 쓴다). 화면 조립과 네비게이션만 담당하고 로직은 `src/features`로 보낸다.
 - `src/domain/` — **순수 TypeScript**. `react`, `react-native`, `expo*`, `@/data`, `@/ui`, `@/platform` import 금지. `Date.now()`, 인자 없는 `new Date()`, `Math.random()` 금지 → `Clock`과 시드 RNG를 주입받는다.
-- `src/data/` — SQLite를 아는 유일한 계층(repositories, services, migrations). UI(`app/`, `src/features`, `src/ui`)는 `expo-sqlite`를 import하지 않는다.
+- `src/data/` — SQLite를 아는 유일한 계층(repositories, services, migrations). UI(`src/app`, `src/features`, `src/ui`)는 `expo-sqlite`를 import하지 않는다.
 - `src/platform/` — Expo 네이티브 모듈 래퍼(speech, notifications, haptics, share, files, clock, uuid). 테스트에서는 fake로 바꾼다.
 - `src/features/<기능>/` — 화면 hook과 기능 전용 컴포넌트. 공통 컴포넌트는 `src/ui/`에 둔다.
 - `src/i18n/locales/{ko,en}.json` — 모든 사용자 노출 문자열. 두 파일의 키 집합은 같아야 한다(테스트로 검사).

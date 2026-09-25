@@ -5,7 +5,8 @@ import type { ConfigContext, ExpoConfig } from 'expo/config';
  * Override without editing code: IOS_BUNDLE_ID=com.example.versekeeper eas build ...
  */
 const BUNDLE_ID = process.env.IOS_BUNDLE_ID ?? 'io.github.jackson9910hr-cyber.versekeeper';
-const EAS_PROJECT_ID = process.env.EAS_PROJECT_ID;
+/** Paste the id printed by `npx eas-cli@latest init` here (or set EAS_PROJECT_ID). See docs/release.md. */
+const EAS_PROJECT_ID = process.env.EAS_PROJECT_ID ?? '';
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,

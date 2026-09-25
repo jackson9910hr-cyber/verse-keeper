@@ -1,6 +1,8 @@
 # Verse Keeper — 결정 필요 사항 (open-questions.md)
 
 > Stage 0 산출물 · 각 질문에 **권장안**을 적어 두었다. 문서는 권장안을 기준으로 작성했으므로, 답이 다르면 해당 문서만 고치면 된다.
+> **2026-09-25 진행 결정**: 사용자가 "배포까지 완료"를 지시해 Q1~Q3, Q7~Q18은 권장안으로 확정해 구현했다. Q4(앱 이름)·Q5(Bundle ID)는 자리표시 기본값(`Verse Keeper`, `io.github.jackson9910hr-cyber.versekeeper`)으로 두고 `app.config.ts`에서 바꿀 수 있다. Q6(Apple Developer 계정)은 사용자가 해야 하는 일이다.
+>
 > 답변 형식 예: `Q1: A, Q2: B, Q3: 권장, Q4: "말씀지킴이", Q5: com.example.versekeeper, Q6: 있음 …`
 
 ## A. 필수 질문 (Stage 1 전에 필요)

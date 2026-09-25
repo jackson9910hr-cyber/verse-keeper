@@ -2,26 +2,25 @@
 
 > Stage 0 산출물 · 라우팅: Expo Router (파일 기반)
 
-> 💡 **웹 개발자 관점** — Expo Router는 Next.js처럼 `app/` 폴더의 파일 경로가 곧 URL(라우트)이 된다. `(tabs)` 같은 괄호 폴더는 URL에 나타나지 않는 "그룹"이고, `_layout.tsx`는 그 폴더의 공통 레이아웃(탭 바나 스택 헤더)이다. 브라우저 history 대신 네이티브 **스택**(push/pop 애니메이션)과 **탭**을 쓴다.
+> 💡 **웹 개발자 관점** — Expo Router는 Next.js처럼 `src/app/` 폴더의 파일 경로가 곧 URL(라우트)이 된다. `(tabs)` 같은 괄호 폴더는 URL에 나타나지 않는 "그룹"이고, `_layout.tsx`는 그 폴더의 공통 레이아웃(탭 바나 스택 헤더)이다. 브라우저 history 대신 네이티브 **스택**(push/pop 애니메이션)과 **탭**을 쓴다.
 
 ## 1. 라우트 맵
 
 ```text
-app/
+src/app/
 ├─ _layout.tsx                 # Providers(DB, i18n, Theme, Profile) + 스플래시 제어 + 마이그레이션 게이트
 ├─ onboarding.tsx              # 첫 실행 (이름 입력)
 ├─ (tabs)/
 │  ├─ _layout.tsx              # 탭 바: 홈 · 구절 · 가족 · 설정
 │  ├─ index.tsx                # 홈
-│  ├─ verses/index.tsx         # 구절 목록
+│  ├─ verses.tsx               # 구절 목록 (?tag= 필터)
 │  ├─ family.tsx               # 가족
-│  └─ settings/index.tsx       # 설정
+│  └─ settings.tsx             # 설정
 ├─ verse/[id].tsx              # 구절 상세
 ├─ verse/edit.tsx              # 추가 / 편집 (?id=)  — modal
 ├─ practice/[cardId].tsx       # 암송 (모드 탭: 빈칸 · 첫 글자 · 듣기) + 평가
-├─ review/session.tsx          # 오늘 복습 세션 (practice 컴포넌트 재사용)
-├─ review/summary.tsx          # 세션 결과
-├─ family/pick.tsx             # 이번 주 구절 선택 — modal
+├─ review.tsx                  # 오늘 복습 세션 + 결과 요약 (PracticePanel 재사용)
+├─ family-pick.tsx             # 이번 주 구절 선택 — modal
 ├─ settings/profiles.tsx       # 가족 구성원 관리
 ├─ settings/notifications.tsx
 ├─ settings/backup.tsx
