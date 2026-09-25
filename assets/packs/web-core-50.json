@@ -1,0 +1,584 @@
+{
+  "packId": "web-core-50",
+  "version": 1,
+  "translation": {
+    "code": "WEB",
+    "name": "World English Bible",
+    "license": "Public Domain",
+    "licenseNote": "The World English Bible is in the public domain. \"World English Bible\" is a trademark of eBible.org; this text is reproduced unmodified (whitespace normalized only).",
+    "source": "https://ebible.org/web/",
+    "retrievedAt": "2026-09-25",
+    "sourceSha256": "b5e90e6a99666223cac073e9f13932f2cf777d88aca1b989c3d4236c2c65dafa"
+  },
+  "verses": [
+    {
+      "id": "web-core-50:GEN.1.1",
+      "book": "GEN",
+      "chapter": 1,
+      "verseStart": 1,
+      "verseEnd": null,
+      "textEn": "In the beginning, God created the heavens and the earth.",
+      "tags": [
+        "creation"
+      ]
+    },
+    {
+      "id": "web-core-50:JOS.1.9",
+      "book": "JOS",
+      "chapter": 1,
+      "verseStart": 9,
+      "verseEnd": null,
+      "textEn": "Haven’t I commanded you? Be strong and courageous. Don’t be afraid. Don’t be dismayed, for Yahweh your God is with you wherever you go.”",
+      "tags": [
+        "courage"
+      ]
+    },
+    {
+      "id": "web-core-50:PSA.1.1-2",
+      "book": "PSA",
+      "chapter": 1,
+      "verseStart": 1,
+      "verseEnd": 2,
+      "textEn": "Blessed is the man who doesn’t walk in the counsel of the wicked, nor stand on the path of sinners, nor sit in the seat of scoffers; but his delight is in Yahweh’s law. On his law he meditates day and night.",
+      "tags": [
+        "word",
+        "blessing"
+      ]
+    },
+    {
+      "id": "web-core-50:PSA.23.1",
+      "book": "PSA",
+      "chapter": 23,
+      "verseStart": 1,
+      "verseEnd": null,
+      "textEn": "Yahweh is my shepherd: I shall lack nothing.",
+      "tags": [
+        "comfort",
+        "trust"
+      ]
+    },
+    {
+      "id": "web-core-50:PSA.46.1",
+      "book": "PSA",
+      "chapter": 46,
+      "verseStart": 1,
+      "verseEnd": null,
+      "textEn": "God is our refuge and strength, a very present help in trouble.",
+      "tags": [
+        "strength",
+        "comfort"
+      ]
+    },
+    {
+      "id": "web-core-50:PSA.119.11",
+      "book": "PSA",
+      "chapter": 119,
+      "verseStart": 11,
+      "verseEnd": null,
+      "textEn": "I have hidden your word in my heart, that I might not sin against you.",
+      "tags": [
+        "word"
+      ]
+    },
+    {
+      "id": "web-core-50:PSA.119.105",
+      "book": "PSA",
+      "chapter": 119,
+      "verseStart": 105,
+      "verseEnd": null,
+      "textEn": "Your word is a lamp to my feet, and a light for my path.",
+      "tags": [
+        "word",
+        "guidance"
+      ]
+    },
+    {
+      "id": "web-core-50:PSA.139.14",
+      "book": "PSA",
+      "chapter": 139,
+      "verseStart": 14,
+      "verseEnd": null,
+      "textEn": "I will give thanks to you, for I am fearfully and wonderfully made. Your works are wonderful. My soul knows that very well.",
+      "tags": [
+        "identity",
+        "praise"
+      ]
+    },
+    {
+      "id": "web-core-50:PRO.1.7",
+      "book": "PRO",
+      "chapter": 1,
+      "verseStart": 7,
+      "verseEnd": null,
+      "textEn": "The fear of Yahweh is the beginning of knowledge; but the foolish despise wisdom and instruction.",
+      "tags": [
+        "wisdom"
+      ]
+    },
+    {
+      "id": "web-core-50:PRO.22.6",
+      "book": "PRO",
+      "chapter": 22,
+      "verseStart": 6,
+      "verseEnd": null,
+      "textEn": "Train up a child in the way he should go, and when he is old he will not depart from it.",
+      "tags": [
+        "family"
+      ]
+    },
+    {
+      "id": "web-core-50:PRO.3.5-6",
+      "book": "PRO",
+      "chapter": 3,
+      "verseStart": 5,
+      "verseEnd": 6,
+      "textEn": "Trust in Yahweh with all your heart, and don’t lean on your own understanding. In all your ways acknowledge him, and he will make your paths straight.",
+      "tags": [
+        "trust",
+        "guidance"
+      ]
+    },
+    {
+      "id": "web-core-50:ISA.26.3",
+      "book": "ISA",
+      "chapter": 26,
+      "verseStart": 3,
+      "verseEnd": null,
+      "textEn": "You will keep whoever’s mind is steadfast in perfect peace, because he trusts in you.",
+      "tags": [
+        "peace",
+        "trust"
+      ]
+    },
+    {
+      "id": "web-core-50:ISA.40.31",
+      "book": "ISA",
+      "chapter": 40,
+      "verseStart": 31,
+      "verseEnd": null,
+      "textEn": "but those who wait for Yahweh will renew their strength. They will mount up with wings like eagles. They will run, and not be weary. They will walk, and not faint.",
+      "tags": [
+        "strength",
+        "hope"
+      ]
+    },
+    {
+      "id": "web-core-50:ISA.41.10",
+      "book": "ISA",
+      "chapter": 41,
+      "verseStart": 10,
+      "verseEnd": null,
+      "textEn": "Don’t you be afraid, for I am with you. Don’t be dismayed, for I am your God. I will strengthen you. Yes, I will help you. Yes, I will uphold you with the right hand of my righteousness.",
+      "tags": [
+        "courage",
+        "comfort"
+      ]
+    },
+    {
+      "id": "web-core-50:ISA.53.5",
+      "book": "ISA",
+      "chapter": 53,
+      "verseStart": 5,
+      "verseEnd": null,
+      "textEn": "But he was pierced for our transgressions. He was crushed for our iniquities. The punishment that brought our peace was on him; and by his wounds we are healed.",
+      "tags": [
+        "salvation"
+      ]
+    },
+    {
+      "id": "web-core-50:JER.29.11",
+      "book": "JER",
+      "chapter": 29,
+      "verseStart": 11,
+      "verseEnd": null,
+      "textEn": "For I know the thoughts that I think toward you,” says Yahweh, “thoughts of peace, and not of evil, to give you hope and a future.",
+      "tags": [
+        "hope"
+      ]
+    },
+    {
+      "id": "web-core-50:LAM.3.22-23",
+      "book": "LAM",
+      "chapter": 3,
+      "verseStart": 22,
+      "verseEnd": 23,
+      "textEn": "It is because of Yahweh’s loving kindnesses that we are not consumed, because his compassion doesn’t fail. They are new every morning. Great is your faithfulness.",
+      "tags": [
+        "faithfulness",
+        "hope"
+      ]
+    },
+    {
+      "id": "web-core-50:MIC.6.8",
+      "book": "MIC",
+      "chapter": 6,
+      "verseStart": 8,
+      "verseEnd": null,
+      "textEn": "He has shown you, O man, what is good. What does Yahweh require of you, but to act justly, to love mercy, and to walk humbly with your God?",
+      "tags": [
+        "obedience"
+      ]
+    },
+    {
+      "id": "web-core-50:MAT.5.16",
+      "book": "MAT",
+      "chapter": 5,
+      "verseStart": 16,
+      "verseEnd": null,
+      "textEn": "Even so, let your light shine before men; that they may see your good works, and glorify your Father who is in heaven.",
+      "tags": [
+        "witness"
+      ]
+    },
+    {
+      "id": "web-core-50:MAT.6.33",
+      "book": "MAT",
+      "chapter": 6,
+      "verseStart": 33,
+      "verseEnd": null,
+      "textEn": "But seek first God’s Kingdom, and his righteousness; and all these things will be given to you as well.",
+      "tags": [
+        "priorities"
+      ]
+    },
+    {
+      "id": "web-core-50:MAT.11.28",
+      "book": "MAT",
+      "chapter": 11,
+      "verseStart": 28,
+      "verseEnd": null,
+      "textEn": "“Come to me, all you who labor and are heavily burdened, and I will give you rest.",
+      "tags": [
+        "rest",
+        "comfort"
+      ]
+    },
+    {
+      "id": "web-core-50:MAT.28.19-20",
+      "book": "MAT",
+      "chapter": 28,
+      "verseStart": 19,
+      "verseEnd": 20,
+      "textEn": "Go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, teaching them to observe all things that I commanded you. Behold, I am with you always, even to the end of the age.” Amen.",
+      "tags": [
+        "mission"
+      ]
+    },
+    {
+      "id": "web-core-50:MRK.10.45",
+      "book": "MRK",
+      "chapter": 10,
+      "verseStart": 45,
+      "verseEnd": null,
+      "textEn": "For the Son of Man also came not to be served, but to serve, and to give his life as a ransom for many.”",
+      "tags": [
+        "service"
+      ]
+    },
+    {
+      "id": "web-core-50:LUK.9.23",
+      "book": "LUK",
+      "chapter": 9,
+      "verseStart": 23,
+      "verseEnd": null,
+      "textEn": "He said to all, “If anyone desires to come after me, let him deny himself, take up his cross, and follow me.",
+      "tags": [
+        "discipleship"
+      ]
+    },
+    {
+      "id": "web-core-50:JHN.1.1",
+      "book": "JHN",
+      "chapter": 1,
+      "verseStart": 1,
+      "verseEnd": null,
+      "textEn": "In the beginning was the Word, and the Word was with God, and the Word was God.",
+      "tags": [
+        "word"
+      ]
+    },
+    {
+      "id": "web-core-50:JHN.3.16",
+      "book": "JHN",
+      "chapter": 3,
+      "verseStart": 16,
+      "verseEnd": null,
+      "textEn": "For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.",
+      "tags": [
+        "love",
+        "salvation"
+      ]
+    },
+    {
+      "id": "web-core-50:JHN.14.6",
+      "book": "JHN",
+      "chapter": 14,
+      "verseStart": 6,
+      "verseEnd": null,
+      "textEn": "Jesus said to him, “I am the way, the truth, and the life. No one comes to the Father, except through me.",
+      "tags": [
+        "salvation"
+      ]
+    },
+    {
+      "id": "web-core-50:JHN.15.5",
+      "book": "JHN",
+      "chapter": 15,
+      "verseStart": 5,
+      "verseEnd": null,
+      "textEn": "I am the vine. You are the branches. He who remains in me and I in him bears much fruit, for apart from me you can do nothing.",
+      "tags": [
+        "discipleship"
+      ]
+    },
+    {
+      "id": "web-core-50:ACT.1.8",
+      "book": "ACT",
+      "chapter": 1,
+      "verseStart": 8,
+      "verseEnd": null,
+      "textEn": "But you will receive power when the Holy Spirit has come upon you. You will be witnesses to me in Jerusalem, in all Judea and Samaria, and to the uttermost parts of the earth.”",
+      "tags": [
+        "mission"
+      ]
+    },
+    {
+      "id": "web-core-50:ROM.3.23",
+      "book": "ROM",
+      "chapter": 3,
+      "verseStart": 23,
+      "verseEnd": null,
+      "textEn": "for all have sinned, and fall short of the glory of God;",
+      "tags": [
+        "salvation"
+      ]
+    },
+    {
+      "id": "web-core-50:ROM.8.1",
+      "book": "ROM",
+      "chapter": 8,
+      "verseStart": 1,
+      "verseEnd": null,
+      "textEn": "There is therefore now no condemnation to those who are in Christ Jesus, who don’t walk according to the flesh, but according to the Spirit.",
+      "tags": [
+        "grace"
+      ]
+    },
+    {
+      "id": "web-core-50:ROM.8.28",
+      "book": "ROM",
+      "chapter": 8,
+      "verseStart": 28,
+      "verseEnd": null,
+      "textEn": "We know that all things work together for good for those who love God, for those who are called according to his purpose.",
+      "tags": [
+        "trust",
+        "hope"
+      ]
+    },
+    {
+      "id": "web-core-50:ROM.10.9",
+      "book": "ROM",
+      "chapter": 10,
+      "verseStart": 9,
+      "verseEnd": null,
+      "textEn": "that if you will confess with your mouth that Jesus is Lord, and believe in your heart that God raised him from the dead, you will be saved.",
+      "tags": [
+        "salvation"
+      ]
+    },
+    {
+      "id": "web-core-50:ROM.12.1",
+      "book": "ROM",
+      "chapter": 12,
+      "verseStart": 1,
+      "verseEnd": null,
+      "textEn": "Therefore I urge you, brothers, by the mercies of God, to present your bodies a living sacrifice, holy, acceptable to God, which is your spiritual service.",
+      "tags": [
+        "worship"
+      ]
+    },
+    {
+      "id": "web-core-50:ROM.12.2",
+      "book": "ROM",
+      "chapter": 12,
+      "verseStart": 2,
+      "verseEnd": null,
+      "textEn": "Don’t be conformed to this world, but be transformed by the renewing of your mind, so that you may prove what is the good, well-pleasing, and perfect will of God.",
+      "tags": [
+        "renewal"
+      ]
+    },
+    {
+      "id": "web-core-50:1CO.10.13",
+      "book": "1CO",
+      "chapter": 10,
+      "verseStart": 13,
+      "verseEnd": null,
+      "textEn": "No temptation has taken you except what is common to man. God is faithful, who will not allow you to be tempted above what you are able, but will with the temptation also make the way of escape, that you may be able to endure it.",
+      "tags": [
+        "strength"
+      ]
+    },
+    {
+      "id": "web-core-50:1CO.13.4",
+      "book": "1CO",
+      "chapter": 13,
+      "verseStart": 4,
+      "verseEnd": null,
+      "textEn": "Love is patient and is kind. Love doesn’t envy. Love doesn’t brag, is not proud,",
+      "tags": [
+        "love"
+      ]
+    },
+    {
+      "id": "web-core-50:2CO.5.17",
+      "book": "2CO",
+      "chapter": 5,
+      "verseStart": 17,
+      "verseEnd": null,
+      "textEn": "Therefore if anyone is in Christ, he is a new creation. The old things have passed away. Behold, all things have become new.",
+      "tags": [
+        "renewal",
+        "identity"
+      ]
+    },
+    {
+      "id": "web-core-50:GAL.2.20",
+      "book": "GAL",
+      "chapter": 2,
+      "verseStart": 20,
+      "verseEnd": null,
+      "textEn": "I have been crucified with Christ, and it is no longer I who live, but Christ lives in me. That life which I now live in the flesh, I live by faith in the Son of God, who loved me, and gave himself up for me.",
+      "tags": [
+        "identity",
+        "faith"
+      ]
+    },
+    {
+      "id": "web-core-50:GAL.5.22-23",
+      "book": "GAL",
+      "chapter": 5,
+      "verseStart": 22,
+      "verseEnd": 23,
+      "textEn": "But the fruit of the Spirit is love, joy, peace, patience, kindness, goodness, faith, gentleness, and self-control. Against such things there is no law.",
+      "tags": [
+        "fruit"
+      ]
+    },
+    {
+      "id": "web-core-50:EPH.2.8-9",
+      "book": "EPH",
+      "chapter": 2,
+      "verseStart": 8,
+      "verseEnd": 9,
+      "textEn": "for by grace you have been saved through faith, and that not of yourselves; it is the gift of God, not of works, that no one would boast.",
+      "tags": [
+        "grace",
+        "faith"
+      ]
+    },
+    {
+      "id": "web-core-50:PHP.4.6-7",
+      "book": "PHP",
+      "chapter": 4,
+      "verseStart": 6,
+      "verseEnd": 7,
+      "textEn": "In nothing be anxious, but in everything, by prayer and petition with thanksgiving, let your requests be made known to God. And the peace of God, which surpasses all understanding, will guard your hearts and your thoughts in Christ Jesus.",
+      "tags": [
+        "prayer",
+        "peace"
+      ]
+    },
+    {
+      "id": "web-core-50:PHP.4.13",
+      "book": "PHP",
+      "chapter": 4,
+      "verseStart": 13,
+      "verseEnd": null,
+      "textEn": "I can do all things through Christ, who strengthens me.",
+      "tags": [
+        "strength"
+      ]
+    },
+    {
+      "id": "web-core-50:COL.3.23",
+      "book": "COL",
+      "chapter": 3,
+      "verseStart": 23,
+      "verseEnd": null,
+      "textEn": "And whatever you do, work heartily, as for the Lord, and not for men,",
+      "tags": [
+        "work"
+      ]
+    },
+    {
+      "id": "web-core-50:2TI.3.16",
+      "book": "2TI",
+      "chapter": 3,
+      "verseStart": 16,
+      "verseEnd": null,
+      "textEn": "Every Scripture is God-breathed and profitable for teaching, for reproof, for correction, and for instruction in righteousness,",
+      "tags": [
+        "word"
+      ]
+    },
+    {
+      "id": "web-core-50:HEB.11.1",
+      "book": "HEB",
+      "chapter": 11,
+      "verseStart": 1,
+      "verseEnd": null,
+      "textEn": "Now faith is assurance of things hoped for, proof of things not seen.",
+      "tags": [
+        "faith"
+      ]
+    },
+    {
+      "id": "web-core-50:HEB.12.1",
+      "book": "HEB",
+      "chapter": 12,
+      "verseStart": 1,
+      "verseEnd": null,
+      "textEn": "Therefore let’s also, seeing we are surrounded by so great a cloud of witnesses, lay aside every weight and the sin which so easily entangles us, and let’s run with perseverance the race that is set before us,",
+      "tags": [
+        "perseverance"
+      ]
+    },
+    {
+      "id": "web-core-50:JAS.1.5",
+      "book": "JAS",
+      "chapter": 1,
+      "verseStart": 5,
+      "verseEnd": null,
+      "textEn": "But if any of you lacks wisdom, let him ask of God, who gives to all liberally and without reproach, and it will be given to him.",
+      "tags": [
+        "wisdom",
+        "prayer"
+      ]
+    },
+    {
+      "id": "web-core-50:1PE.5.7",
+      "book": "1PE",
+      "chapter": 5,
+      "verseStart": 7,
+      "verseEnd": null,
+      "textEn": "casting all your worries on him, because he cares for you.",
+      "tags": [
+        "comfort",
+        "prayer"
+      ]
+    },
+    {
+      "id": "web-core-50:1JN.1.9",
+      "book": "1JN",
+      "chapter": 1,
+      "verseStart": 9,
+      "verseEnd": null,
+      "textEn": "If we confess our sins, he is faithful and righteous to forgive us the sins, and to cleanse us from all unrighteousness.",
+      "tags": [
+        "forgiveness"
+      ]
+    }
+  ]
+}
