@@ -32,14 +32,14 @@ describe('firstLetterHint — English', () => {
 
 describe('firstLetterHint — Korean', () => {
   it('syllable rule: first syllable + circles', () => {
-    expect(render('태초에 하나님이', { koRule: 'syllable', showLength: true })).toBe('태○○ 하○○○');
+    expect(render('우리는 오늘도', { koRule: 'syllable', showLength: true })).toBe('우○○ 오○○');
   });
   it('syllable rule with hidden length', () => {
-    expect(render('태초에', { koRule: 'syllable', showLength: false })).toBe('태…');
+    expect(render('우리는', { koRule: 'syllable', showLength: false })).toBe('우…');
   });
   it('choseong rule maps every syllable', () => {
-    expect(render('태초에 하나님이.', { koRule: 'choseong', showLength: true })).toBe(
-      'ㅌㅊㅇ ㅎㄴㄴㅇ.',
+    expect(render('우리는 오늘도.', { koRule: 'choseong', showLength: true })).toBe(
+      'ㅇㄹㄴ ㅇㄴㄷ.',
     );
   });
   it('mixed eojeol follows the first character script', () => {

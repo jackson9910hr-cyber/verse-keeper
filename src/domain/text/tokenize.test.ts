@@ -7,9 +7,9 @@ describe('normalizeText', () => {
     expect(normalizeText('  For\tGod \n\n so  ')).toBe('For God so');
   });
   it('NFC-normalizes decomposed Hangul', () => {
-    const nfd = '태초에'.normalize('NFD');
-    expect(nfd).not.toBe('태초에');
-    expect(normalizeText(nfd)).toBe('태초에');
+    const nfd = '우리는'.normalize('NFD');
+    expect(nfd).not.toBe('우리는');
+    expect(normalizeText(nfd)).toBe('우리는');
   });
 });
 
@@ -82,8 +82,8 @@ describe('tokenize', () => {
   });
 
   it('treats Korean eojeol as words and detects scripts', () => {
-    const w = wordTokens(tokenize('태초에 하나님이 Christ께서 3일'));
-    expect(w.map((t) => t.text)).toEqual(['태초에', '하나님이', 'Christ께서', '3일']);
+    const w = wordTokens(tokenize('우리는 오늘도 Christ께서 3일'));
+    expect(w.map((t) => t.text)).toEqual(['우리는', '오늘도', 'Christ께서', '3일']);
     expect(w.map((t) => t.script)).toEqual(['hangul', 'hangul', 'latin', 'digit']);
   });
 

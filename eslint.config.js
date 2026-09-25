@@ -8,6 +8,27 @@ const NETWORK_GLOBALS = ['fetch', 'XMLHttpRequest', 'WebSocket', 'EventSource'].
   message: 'Verse Keeper is offline-only: network calls are forbidden (CLAUDE.md).',
 }));
 
+// fetch reached through a global object, and push-token APIs (local notifications only).
+const RESTRICTED_PROPERTIES = [
+  ...['globalThis', 'global', 'window', 'self'].flatMap((object) =>
+    ['fetch', 'XMLHttpRequest', 'WebSocket'].map((property) => ({
+      object,
+      property,
+      message: 'Verse Keeper is offline-only: network calls are forbidden (CLAUDE.md).',
+    })),
+  ),
+  ...[
+    'getExpoPushTokenAsync',
+    'getDevicePushTokenAsync',
+    'setAutoServerRegistrationEnabledAsync',
+    'registerTaskAsync',
+  ].map((property) => ({
+    object: 'Notifications',
+    property,
+    message: 'Remote push is forbidden: local notifications only.',
+  })),
+];
+
 const TRACKING_PACKAGES = [
   'firebase',
   '@react-native-firebase/*',
@@ -31,6 +52,7 @@ module.exports = defineConfig([
   {
     rules: {
       'no-restricted-globals': ['error', ...NETWORK_GLOBALS],
+      'no-restricted-properties': ['error', ...RESTRICTED_PROPERTIES],
       'no-restricted-imports': [
         'error',
         {
@@ -78,6 +100,10 @@ module.exports = defineConfig([
                 '@/providers/*',
               ],
               message: 'src/domain must stay pure TypeScript (no React/Expo/data/UI imports).',
+            },
+            {
+              group: TRACKING_PACKAGES,
+              message: 'Tracking/analytics/ads/remote SDKs are forbidden.',
             },
           ],
         },

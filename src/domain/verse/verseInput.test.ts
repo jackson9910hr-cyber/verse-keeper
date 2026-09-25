@@ -33,8 +33,8 @@ describe('validateVerseInput', () => {
     if (!r.ok) expect(r.errors.verseEnd).toBe('invalid');
   });
   it('normalizes text to NFC and trims', () => {
-    const r = validateVerseInput({ ...base, textKo: `  ${'태초에'.normalize('NFD')}  ` });
-    expect(r.ok && r.value.textKo).toBe('태초에');
+    const r = validateVerseInput({ ...base, textKo: `  ${'우리는'.normalize('NFD')}  ` });
+    expect(r.ok && r.value.textKo).toBe('우리는');
   });
 });
 

@@ -17,9 +17,9 @@
 | R8 | **1.2 사용자 생성 콘텐츠** | 사용자 입력 구절이 UGC로 분류되면 신고·차단 기능이 필요해진다 | 낮음 | 입력 내용은 기기 안에만 있고 다른 사용자에게 공개·공유되지 않으므로 1.2의 UGC(다른 사용자에게 노출되는 콘텐츠)에 해당하지 않는다. 심사 노트에 명시 | Review Notes 문구 |
 | R9 | **1.3 키즈 카테고리** | 가족용이라 어린이 대상 앱으로 분류되면 Kids 요구사항(외부 링크 제한, 부모 게이트)이 적용된다 | 중 | Kids 카테고리를 **선택하지 않는다**. 카테고리는 "Education"(주) / "Reference" 또는 "Lifestyle"(보조) 제안. 메타데이터에 "for kids" 같은 표현을 쓰지 않는다 | App Store Connect 카테고리 설정 |
 | R10 | **1.5 개발자 정보** | 지원 URL과 연락처가 필요하다 | 낮음 | GitHub Pages에 support 페이지(문의 이메일 자리표시) | Stage 4 `docs/support.md` |
-| R11 | **2.1 앱 완성도** | 빈 상태나 크래시, 자리표시 텍스트("Lorem") 때문에 리젝 | 중 | 모든 화면의 빈·오류 상태 정의([screens.md](./screens.md) §3), TestFlight 내부 테스트, 자리표시 문자열 검사 스크립트 | Stage 3 리뷰 표, TestFlight 체크리스트 |
+| R11 | **2.1 앱 완성도** | 빈 상태나 크래시, 자리표시 텍스트("Lorem") 때문에 리젝 | 중 | 모든 화면의 빈·오류 상태 정의([screens.md](./screens.md) §3), TestFlight 내부 테스트, 자리표시 문자열 검사 테스트(`src/i18n/locales.test.ts`) | Stage 3 리뷰 표, TestFlight 체크리스트 |
 | R12 | **4.5.4 알림** | 알림을 기능 필수 조건으로 만들거나 마케팅 목적으로 쓰면 위반 | 낮음 | 알림은 선택 사항, 기본 꺼짐, 복습 알림 용도만 | 설정 화면 |
-| R13 | **저작권 (5.2)** | 저작권이 있는 번역본(개역개정 등)이 번들에 들어가면 리젝 및 법적 위험 | **높음(발생 시)** | 번들 = WEB 공개 도메인만. 한국어 본문은 사용자 입력만. CI에서 팩 JSON의 `license == "Public Domain"`과 번역 코드 허용 목록(WEB)을 검사. 테스트 픽스처는 WEB 또는 직접 만든 더미 문장만 사용 | `scripts/check-pack.ts` CI 단계, CLAUDE.md 금지사항 |
+| R13 | **저작권 (5.2)** | 저작권이 있는 번역본(개역개정 등)이 번들에 들어가면 리젝 및 법적 위험 | **높음(발생 시)** | 번들 = WEB 공개 도메인만. 한국어 본문은 사용자 입력만. CI에서 팩 JSON의 `license == "Public Domain"`과 번역 코드 허용 목록(WEB)을 검사. 테스트 픽스처는 WEB 또는 직접 만든 더미 문장만 사용 | `scripts/pack.test.ts` + `src/domain/pack/pack.ts`(번역 허용 목록·라이선스 검증, CI에서 실행), CLAUDE.md 금지사항 |
 | R14 | **상표 (WEB)** | "World English Bible"은 eBible.org의 상표다. 원문을 바꾸면 그 이름을 쓸 수 없다 | 중 | WEB 원문을 **수정하지 않는다**(팩 구절의 영어 본문은 읽기 전용). 출처와 라이선스를 앱 안에 표시한다 | [spec.md](./spec.md) US-VC-2 AC4, 설정 > 정보 |
 | R15 | **KJV (영국)** | KJV는 영국에서 Crown(왕실) 특허로 보호된다 → 영국 스토어 배포 시 위험 | 중 | **v1에 포함하지 않는다**(제안). 영국만 빼고 배포하는 방법도 있지만, 번역별 배포 지역을 따로 관리해야 해서 복잡하다. 사용자가 KJV 본문을 직접 입력하는 것은 허용한다 | [open-questions.md](./open-questions.md) Q1 |
 | R16 | **EU DSA 거래자 지위** | EU 스토어에 배포하려면 App Store Connect에서 trader / non-trader를 신고해야 한다 | 중 | 수익이 없는 개인 개발자는 non-trader 신고를 검토한다. trader로 신고하면 주소·전화번호가 공개되므로 주의 | App Store Connect > Business |
