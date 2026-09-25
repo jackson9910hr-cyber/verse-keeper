@@ -17,17 +17,20 @@ export default function FamilyPick() {
   const { t } = useTranslation();
   const { colors } = useTheme();
   const { ctx, lang, settings } = useApp();
+  const weekStartsOn = settings['family.weekStartsOn'];
+  const hapticsOn = settings['ui.haptics'];
   const [search, setSearch] = useState('');
   const deferred = useDeferredValue(search);
   const { data } = useVerseList({ search: deferred, sort: 'canon' });
 
   const pick = useCallback(
-    async (id: string) => {
-      await assignWeeklyVerse(ctx, id, settings['family.weekStartsOn']);
-      haptic('success', settings['ui.haptics']);
-      router.back();
+    (id: string) => {
+      void assignWeeklyVerse(ctx, id, weekStartsOn).then(() => {
+        haptic('success', hapticsOn);
+        router.back();
+      });
     },
-    [ctx, settings],
+    [ctx, weekStartsOn, hapticsOn],
   );
   const renderItem = useCallback(
     ({ item }: { item: Verse }) => (
@@ -35,7 +38,7 @@ export default function FamilyPick() {
         verse={item}
         lang={lang}
         learning={data?.learning.has(item.id) ?? false}
-        onPress={(id) => void pick(id)}
+        onPress={pick}
       />
     ),
     [lang, data?.learning, pick],
@@ -49,7 +52,9 @@ export default function FamilyPick() {
         renderItem={renderItem}
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={styles.content}
-        ItemSeparatorComponent={() => <View style={{ height: spacing.sm }} />}
+        ItemSeparatorComponent={Separator}
+        initialNumToRender={12}
+        windowSize={7}
         ListEmptyComponent={
           deferred ? <EmptyState title={t('verses.emptySearch', { query: deferred })} /> : null
         }
@@ -62,13 +67,21 @@ export default function FamilyPick() {
             accessibilityLabel={t('verses.searchPlaceholder')}
             style={[
               styles.search,
-              { color: colors.text, borderColor: colors.border, backgroundColor: colors.surface },
+              {
+                color: colors.text,
+                borderColor: colors.inputBorder,
+                backgroundColor: colors.surface,
+              },
             ]}
           />
         }
       />
     </View>
   );
+}
+
+function Separator() {
+  return <View style={{ height: spacing.sm }} />;
 }
 
 const styles = StyleSheet.create({

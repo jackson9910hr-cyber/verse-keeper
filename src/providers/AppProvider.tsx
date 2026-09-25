@@ -21,6 +21,7 @@ import {
   DEFAULT_SETTINGS,
   loadSettings,
   saveSetting,
+  writeSetting,
   type SettingKey,
   type Settings,
 } from '@/data/settings';
@@ -59,6 +60,8 @@ export interface AppValue {
 
 const AppContext = createContext<AppValue | null>(null);
 
+const sameJson = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
+
 export function useApp(): AppValue {
   const value = useContext(AppContext);
   if (!value) throw new Error('useApp must be used inside AppProvider');
@@ -87,7 +90,6 @@ export function AppProvider({
   const [phase, setPhase] = useState<AppPhase>({ kind: 'loading' });
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [profiles, setProfiles] = useState<Profile[]>([]);
-  const [activeId, setActiveId] = useState<string | null>(null);
   const [attempt, setAttempt] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
   const ctxRef = useRef<DataContext | null>(testContext ?? null);
@@ -102,9 +104,10 @@ export function AppProvider({
       await listProfiles(ctx),
       await resolveActiveProfile(ctx),
     ];
-    setSettings(active ? { ...s, 'profile.activeId': active } : s);
-    setProfiles(p);
-    setActiveId(active);
+    const next = active ? { ...s, 'profile.activeId': active } : s;
+    // Keep identities when nothing changed so context consumers don't re-render.
+    setSettings((prev) => (sameJson(prev, next) ? prev : next));
+    setProfiles((prev) => (sameJson(prev, p) ? prev : p));
   }, []);
 
   useEffect(() => {
@@ -184,7 +187,8 @@ export function AppProvider({
     const ctx = ctxRef.current;
     if (!ctx) return;
     setSettings((s) => ({ ...s, [key]: value }));
-    await saveSetting(ctx.db, key, value);
+    // Local state is already updated; write without emitting to avoid a second context update.
+    await ctx.db.tx((tx) => writeSetting(tx, key, value));
   }, []);
 
   const scheme =
@@ -205,7 +209,7 @@ export function AppProvider({
       settings,
       lang,
       profiles,
-      activeProfile: profiles.find((p) => p.id === activeId) ?? null,
+      activeProfile: profiles.find((p) => p.id === settings['profile.activeId']) ?? null,
       setSetting,
       reload,
       retry: () => {
@@ -213,7 +217,7 @@ export function AppProvider({
         setAttempt((a) => a + 1);
       },
     }),
-    [phase, ctx, settings, lang, profiles, activeId, setSetting, reload],
+    [phase, ctx, settings, lang, profiles, setSetting, reload],
   );
 
   return (

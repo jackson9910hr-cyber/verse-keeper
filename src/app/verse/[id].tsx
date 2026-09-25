@@ -18,6 +18,7 @@ import { formatLocalDate } from '@/i18n/format';
 import { haptic } from '@/platform/haptics';
 import { useApp } from '@/providers/AppProvider';
 import { useLive } from '@/providers/useLive';
+import { announce } from '@/ui/announce';
 import { Button } from '@/ui/Button';
 import { Card } from '@/ui/Card';
 import { Chip } from '@/ui/Chip';
@@ -34,14 +35,18 @@ export default function VerseDetail() {
   const { ctx, activeProfile, lang, settings } = useApp();
   const profileId = activeProfile?.id ?? '';
   const [notice, setNotice] = useState<string | null>(null);
-  const { data, loading } = useLive(async () => {
-    const verse = await getVerse(ctx, id);
-    return {
-      verse,
-      cards: verse ? await cardsForVerse(ctx, profileId, verse.id) : [],
-      today: todayOf(ctx.clock),
-    };
-  }, [ctx, id, profileId]);
+  const { data, loading } = useLive(
+    async () => {
+      const verse = await getVerse(ctx, id);
+      return {
+        verse,
+        cards: verse ? await cardsForVerse(ctx, profileId, verse.id) : [],
+        today: todayOf(ctx.clock),
+      };
+    },
+    [ctx, id, profileId],
+    ['verses', 'cards', 'reviews', 'family'],
+  );
 
   if (loading && !data)
     return (
@@ -64,11 +69,13 @@ export default function VerseDetail() {
     await startLearning(ctx, profileId, verse, missing);
     haptic('success', settings['ui.haptics']);
     setNotice(t('verse.learnDone'));
+    announce(t('verse.learnDone'));
   };
   const setFamily = async () => {
     await assignWeeklyVerse(ctx, verse.id, settings['family.weekStartsOn']);
     haptic('success', settings['ui.haptics']);
     setNotice(t('verse.familySetDone'));
+    announce(t('verse.familySetDone'));
   };
   const confirmDelete = () =>
     Alert.alert(t('verse.deleteTitle'), t('verse.deleteBody'), [
@@ -156,7 +163,9 @@ export default function VerseDetail() {
       {data.cards.length === 0 ? <Text tone="muted">{t('verse.notLearning')}</Text> : null}
       {data.cards.map((c) => (
         <Card key={c.id}>
-          <Text variant="headline">{t('verse.cardTitle', { lang: t(`lang.${c.lang}`) })}</Text>
+          <Text variant="headline" accessibilityRole="header">
+            {t('verse.cardTitle', { lang: t(`lang.${c.lang}`) })}
+          </Text>
           <Text tone="muted">
             {isDue(c, data.today)
               ? t('verse.dueToday')

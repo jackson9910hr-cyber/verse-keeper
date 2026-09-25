@@ -21,7 +21,11 @@ export default function Practice() {
   const [seed] = useState(() => String(Date.now()));
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(false);
-  const { data: current, loading } = useLive(() => getCardWithVerse(ctx, cardId), [ctx, cardId]);
+  const { data: current, loading } = useLive(
+    () => getCardWithVerse(ctx, cardId),
+    [ctx, cardId],
+    ['cards', 'verses'],
+  );
 
   if (loading && !current)
     return (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { subscribe } from '@/data/events';
+import { subscribe, type DataTopic } from '@/data/events';
 
 export interface Live<T> {
   data: T | undefined;
@@ -10,10 +10,14 @@ export interface Live<T> {
 }
 
 /**
- * Runs an async query and re-runs it whenever the data layer emits a change.
+ * Runs an async query and re-runs it when the data layer emits one of `topics` (or 'all').
  * `deps` must capture every input of the fetcher.
  */
-export function useLive<T>(fetcher: () => Promise<T>, deps: readonly unknown[]): Live<T> {
+export function useLive<T>(
+  fetcher: () => Promise<T>,
+  deps: readonly unknown[],
+  topics: readonly DataTopic[],
+): Live<T> {
   const [state, setState] = useState<{ data: T | undefined; error: unknown; loading: boolean }>({
     data: undefined,
     error: null,
@@ -21,7 +25,14 @@ export function useLive<T>(fetcher: () => Promise<T>, deps: readonly unknown[]):
   });
   const [version, setVersion] = useState(0);
 
-  useEffect(() => subscribe(() => setVersion((v) => v + 1)), []);
+  const topicKey = topics.join(',');
+  useEffect(
+    () =>
+      subscribe((topic) => {
+        if (topic === 'all' || topicKey.split(',').includes(topic)) setVersion((v) => v + 1);
+      }),
+    [topicKey],
+  );
 
   useEffect(() => {
     let active = true;
