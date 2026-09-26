@@ -31,9 +31,8 @@ jobs:
         env:
           CI: '1'
           WEB_BASE_URL: /verse-keeper
+      # Pages must be enabled once in Settings → Pages → Source: GitHub Actions.
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist-web
